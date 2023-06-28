@@ -33,5 +33,10 @@ npm-debug.log*
 build
 .env
 
+# Optional REPL history
+.DS_Store
+.idea
+.vscode
+
 
 
