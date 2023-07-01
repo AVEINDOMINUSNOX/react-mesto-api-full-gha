@@ -1,4 +1,4 @@
-export const BASE_URL = "mesto.aveindominusnox.nomoreparties.sbs";
+export const BASE_URL = "http://mesto.aveindominusnox.nomoreparties.sbs";
 
 export class Auth {
   handleError(err) {
