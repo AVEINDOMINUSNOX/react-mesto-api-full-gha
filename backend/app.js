@@ -5,7 +5,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
 const { errors } = require('celebrate');
-const cors = require('cors');
+const cors = require('./middlewares/cors');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
