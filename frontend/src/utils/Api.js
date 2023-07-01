@@ -88,6 +88,7 @@ class Api {
   }
 }
 
+let token = localStorage.getItem('jwt');
 const api = new Api({
 /*   url: "https://mesto.nomoreparties.co/v1/cohort-60",
   headers: {
@@ -96,7 +97,7 @@ const api = new Api({
   }, */
   url: 'http://mesto.aveindominusnox.nomoreparties.sbs',
   headers: {
-    Authorization : `Bearer ${localStorage.getItem('token')}`,
+    Authorization : `Bearer ${token}`,
     "Content-Type": 'application/json',
   }
 });
