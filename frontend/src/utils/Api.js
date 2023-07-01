@@ -95,7 +95,6 @@ const api = new Api({
     "Content-Type": "application/json",
   }, */
   url: 'http://mesto.aveindominusnox.nomoreparties.sbs',
-  token: `Bearer ${localStorage.getItem('token')}`,
   headers: {
     Authorization : `Bearer ${localStorage.getItem('token')}`,
     "Content-Type": 'application/json',
