@@ -1,5 +1,7 @@
 const allowedCors = [
   'localhost:3000',
+  'http://localhost:3000',
+  'https://localhost:3000',
   'https://api.mesto.aveindominusnox.nomoreparties.sbs/',
   'http://api.mesto.aveindominusnox.nomoreparties.sbs/',
   'https://mesto.aveindominusnox.nomoreparties.sbs/',
@@ -22,5 +24,5 @@ module.exports = (req, res, next) => {
     res.header('Access-Control-Allow-Headers', requestHeaders);
     return res.end();
   }
-  next();
+  return next();
 };
