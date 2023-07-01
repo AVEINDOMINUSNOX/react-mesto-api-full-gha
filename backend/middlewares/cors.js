@@ -2,10 +2,10 @@ const allowedCors = [
   'localhost:3000',
   'http://localhost:3000',
   'https://localhost:3000',
-  'https://api.mesto.aveindominusnox.nomoreparties.sbs/',
-  'http://api.mesto.aveindominusnox.nomoreparties.sbs/',
-  'https://mesto.aveindominusnox.nomoreparties.sbs/',
-  'http://mesto.aveindominusnox.nomoreparties.sbs/',
+  'https://api.mesto.aveindominusnox.nomoreparties.sbs',
+  'http://api.mesto.aveindominusnox.nomoreparties.sbs',
+  'https://mesto.aveindominusnox.nomoreparties.sbs',
+  'http://mesto.aveindominusnox.nomoreparties.sbs',
 ];
 
 // eslint-disable-next-line consistent-return
