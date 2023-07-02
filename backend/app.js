@@ -10,8 +10,6 @@ const cardRouter = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
 const handlerError = require('./middlewares/handlerError');
 const { validationCreateUser, validationLoginUser } = require('./middlewares/validationJoiUser');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
 
 const NotFoundError = require('./errors/notFoundError');
 
@@ -29,20 +27,14 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.use(requestLogger);
-
 app.use(limiter);
 app.use(helmet());
-
-app.use(cors);
 
 app.post('/signin', validationLoginUser, login);
 app.post('/signup', validationCreateUser, createUser);
 app.use(userRouter);
 app.use(cardRouter);
 app.use((req, res, next) => next(new NotFoundError('Запрашиваемая страница не найдена')));
-
-app.use(errorLogger);
 
 app.use(errors());
 app.use(handlerError);

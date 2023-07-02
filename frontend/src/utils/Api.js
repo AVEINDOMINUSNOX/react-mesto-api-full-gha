@@ -88,18 +88,12 @@ class Api {
   }
 }
 
-let token = localStorage.getItem('jwt');
 const api = new Api({
-/*   url: "https://mesto.nomoreparties.co/v1/cohort-60",
+  url: "https://mesto.nomoreparties.co/v1/cohort-60",
   headers: {
     Authorization: "9082d6a2-bb5f-45e9-adaf-9f20e9e45d32",
     "Content-Type": "application/json",
-  }, */
-  url: 'http://mesto.aveindominusnox.nomoreparties.sbs',
-  headers: {
-    Authorization : `Bearer ${token}`,
-    "Content-Type": 'application/json',
-  }
+  },
 });
 
 export default api;
