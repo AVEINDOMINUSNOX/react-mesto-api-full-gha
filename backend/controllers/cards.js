@@ -57,6 +57,7 @@ const likeCard = (req, res, next) => {
         { $addToSet: { likes: req.user._id } },
         { new: true },
       )
+        .populate(['likes', 'owner'])
         .then((newCard) => res.send(newCard))
         .catch((err) => next(err));
     })
@@ -76,6 +77,7 @@ const dislikeCard = (req, res, next) => {
         throw new NotFoundError('Карточка с указанным _id не найдена');
       }
       Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: req.user._id } }, { new: true })
+        .populate(['likes', 'owner'])
         .then((newCard) => res.send(newCard))
         .catch((err) => next(err));
     })

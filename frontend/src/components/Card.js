@@ -6,7 +6,7 @@ function Card(card) {
   const [imageError, setImageError] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const isOwn = currentUser._id === card.owner;
-  const isLiked = card.likes.some((like) => like === currentUser._id);
+  const isLiked = card.likes.some((like) => like.id === currentUser._id);
   const cardLikeButton = `item__like-button ${
     isLiked && "item__like-button_status_active"
   }`;
