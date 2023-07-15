@@ -1,4 +1,8 @@
 const allowedCors = [
+  'http://api.mesto.aveindominusnox.nomoreparties.sbs',
+  'https://api.mesto.aveindominusnox.nomoreparties.sbs',
+  'http://www.api.mesto.aveindominusnox.nomoreparties.sbs',
+  'https://www.api.mesto.aveindominusnox.nomoreparties.sbs',
   'http://localhost:3000',
   'https://localhost:3000',
   'https://localhost:3001',
