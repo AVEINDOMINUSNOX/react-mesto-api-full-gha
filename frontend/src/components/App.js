@@ -82,7 +82,7 @@ function App() {
       try {
         const data = await auth.checkUserSession(token);
         setLoggedIn(true);
-        setUserData({ email: data.data.email });
+        setUserData({ email: data.email });
         navigate("/mesto", { replace: true });
       } catch (error) {
         console.log("Error:", error);

@@ -36,7 +36,7 @@ export class Auth {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ password, email }),
     });
 
     return this._handleResponse(
@@ -51,10 +51,10 @@ export class Auth {
     const response = await fetch(`${BASE_URL}/signup`, {
       method: "POST",
       headers: {
-        "Accept" : "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ password, email }),
     });
 
     return this._handleResponse(
@@ -64,14 +64,12 @@ export class Auth {
     );
   }
 
-  async checkUserSession() {
-    const token = localStorage.getItem('jwt');
+  async checkUserSession(token) {
     const response = await fetch(`${BASE_URL}/users/me`, {
       method: "GET",
       headers: {
-        authorization: `Bearer ${token}`,
-        "Accept" : "application/json",
-        "Content-Type": 'application/json'
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

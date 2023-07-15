@@ -5,8 +5,8 @@ import error404 from "../images/error404.png";
 function Card(card) {
   const [imageError, setImageError] = useState(false);
   const currentUser = useContext(CurrentUserContext);
-  const isOwn = currentUser._id === card.owner._id;
-  const isLiked = card.likes.some((like) => like._id === currentUser._id);
+  const isOwn = currentUser._id === card.owner;
+  const isLiked = card.likes.some((like) => like === currentUser._id);
   const cardLikeButton = `item__like-button ${
     isLiked && "item__like-button_status_active"
   }`;
@@ -39,6 +39,7 @@ function Card(card) {
         />
       )}
       {imageError ? (
+        // eslint-disable-next-line jsx-a11y/img-redundant-alt
         <img
           className="item__image"
           src={error404}

@@ -10,6 +10,8 @@ const cardRouter = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
 const handlerError = require('./middlewares/handlerError');
 const { validationCreateUser, validationLoginUser } = require('./middlewares/validationJoiUser');
+const corsMiddleware = require('./middlewares/corsMiddleware');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const NotFoundError = require('./errors/notFoundError');
 
@@ -19,6 +21,8 @@ const app = express();
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
 app.use(express.json());
+
+app.use(requestLogger);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -30,11 +34,15 @@ const limiter = rateLimit({
 app.use(limiter);
 app.use(helmet());
 
+app.use(corsMiddleware);
+
 app.post('/signin', validationLoginUser, login);
 app.post('/signup', validationCreateUser, createUser);
 app.use(userRouter);
 app.use(cardRouter);
 app.use((req, res, next) => next(new NotFoundError('Запрашиваемая страница не найдена')));
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use(handlerError);
