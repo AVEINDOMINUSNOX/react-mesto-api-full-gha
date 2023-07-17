@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.108.224
+IP 158.160.108.224
 
 Frontend https://api.mesto.aveindominusnox.nomoreparties.sbs
 Backend https://mesto.aveindominusnox.nomoreparties.sbs
