@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
@@ -25,7 +26,7 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-app.get('crash-test', () => {
+app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер упал');
   }, 0);

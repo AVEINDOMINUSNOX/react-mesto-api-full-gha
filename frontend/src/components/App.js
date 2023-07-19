@@ -36,10 +36,10 @@ function App() {
   const [isSuccess, setSucces] = useState(false);
 
   useEffect(() => {
+    handleTokenCheck();
     if (!loggedIn) {
       return undefined;
     } else {
-      handleTokenCheck();
       api
         .getInitialCards()
         .then((data) => {
