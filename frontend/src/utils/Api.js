@@ -17,7 +17,10 @@ class Api {
   //Получаем инф-ию о пользователе
   getUserInfo() {
     return fetch(`${this.url}/users/me`, {
-      headers: this.headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
       method: "GET",
     }).then(this._handleResponse);
   }
@@ -49,14 +52,20 @@ class Api {
   // Получаем список фотокарточек
   getInitialCards() {
     return fetch(`${this.url}/cards`, {
-      headers: this.headers,
+       headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
       method: "GET",
     }).then(this._handleResponse);
-  }
+  } 
 
   postCard(data) {
     return fetch(`${this.url}/cards`, {
-      headers: this.headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
       method: "POST",
       body: JSON.stringify(data),
     }).then(this._handleResponse);
@@ -106,8 +115,8 @@ class Api {
 }
 
 const api = new Api({
- /* url: "http://localhost:3000", */ 
-  url: "https://mesto.aveindominusnox.nomoreparties.sbs",
+ url: "http://localhost:3000", 
+/*   url: "https://mesto.aveindominusnox.nomoreparties.sbs", */
   token: `Bearer ${localStorage.getItem("token")}`,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,

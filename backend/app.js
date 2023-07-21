@@ -2,7 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const rateLimit = require('express-rate-limit');
+/* const rateLimit = require('express-rate-limit'); */
 const helmet = require('helmet');
 
 const { errors } = require('celebrate');
@@ -26,14 +26,14 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-const limiter = rateLimit({
+/* const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
 });
 
-app.use(limiter);
+app.use(limiter); */
 app.use(helmet());
 
 app.use(corsMiddleware);

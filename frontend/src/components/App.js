@@ -39,11 +39,7 @@ function App() {
     handleTokenCheck();
   }, []);
 
-  async function handleTokenCheck() {
-    const token = localStorage.getItem("token");
-
-    
-  /* useEffect(() => {
+   useEffect(() => {
     handleTokenCheck();
     if (!loggedIn) {
       return undefined;
@@ -65,14 +61,15 @@ function App() {
           console.log(error.message);
         });
     }
-  }, [loggedIn]);
+  }, [loggedIn]); 
 
   useEffect(() => {
+    handleTokenCheck();
     if (!loggedIn) {
       return undefined;
     } else {
       api
-        .getUserInfo()
+      .getUserInfo()
         .then((data) => {
           setCurrentUser(data);
         })
@@ -80,16 +77,20 @@ function App() {
           console.log(err);
         });
     }
-  }, [loggedIn]); */
+  }, [loggedIn]);
 
-    if (!token) navigate("/sign-up", { replace: true });
+  async function handleTokenCheck() {
+    const token = localStorage.getItem("token");
+
+    if (!token) navigate("/sign-in", { replace: true });
     else {
       try {
         const data = await auth.checkUserSession(token);
-        setLoggedIn(true);
         setUserData({ email: data.email });
         navigate("/mesto", { replace: true });
+        setLoggedIn(true);
       } catch (error) {
+        localStorage.clear("token");
         console.log("Error:", error);
       }
     }
@@ -234,26 +235,9 @@ function App() {
     navigate("/sign-in", { replace: true });
   };
 
-  useEffect(() => {
-      api
-        .getInitialCards()
-        .then((data) => {
-          setCards(
-            data.map((card) => ({
-              _id: card._id,
-              name: card.name,
-              link: card.link,
-              likes: card.likes,
-              owner: card.owner,
-            }))
-          );
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-  }, [loggedIn]);
-
-  useEffect(() => {
+   /* useEffect(() => {
+  if (loggedIn) {
+    handleTokenCheck();
       api
         .getUserInfo()
         .then((data) => {
@@ -262,7 +246,29 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-  }, [loggedIn]); 
+  }}, [loggedIn]); 
+
+  useEffect(() => {
+    if (loggedIn) {
+      handleTokenCheck();
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards(
+          data.map((card) => ({
+            _id: card._id,
+            name: card.name,
+            link: card.link,
+            likes: card.likes,
+            owner: card.owner,
+          }))
+        );
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+}}, [loggedIn]); */
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -295,14 +301,14 @@ function App() {
               element={
                 <ProtectedRouteElement
                   element={Main}
-                  cards={cards}
+                  loggedIn={loggedIn}
                   onEditProfile={handleEditProfileClick}
                   onEditAvatar={handleSaveAvatarClick}
                   onCardClick={handleCardClick}
                   onAddPlace={handleAddCardClick}
                   onCardDelete={handleCardDelete}
                   onCardLike={handleCardLike}
-                  loggedIn={loggedIn}
+                  cards={cards}
                 />
               }
             />
