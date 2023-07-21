@@ -37,6 +37,14 @@ function App() {
 
   useEffect(() => {
     handleTokenCheck();
+  }, []);
+
+  async function handleTokenCheck() {
+    const token = localStorage.getItem("token");
+
+    
+  /* useEffect(() => {
+    handleTokenCheck();
     if (!loggedIn) {
       return undefined;
     } else {
@@ -72,10 +80,7 @@ function App() {
           console.log(err);
         });
     }
-  }, [loggedIn]);
-
-  async function handleTokenCheck() {
-    const token = localStorage.getItem("token");
+  }, [loggedIn]); */
 
     if (!token) navigate("/sign-up", { replace: true });
     else {
@@ -228,6 +233,36 @@ function App() {
     localStorage.clear("token");
     navigate("/sign-in", { replace: true });
   };
+
+  useEffect(() => {
+      api
+        .getInitialCards()
+        .then((data) => {
+          setCards(
+            data.map((card) => ({
+              _id: card._id,
+              name: card.name,
+              link: card.link,
+              likes: card.likes,
+              owner: card.owner,
+            }))
+          );
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+  }, [loggedIn]);
+
+  useEffect(() => {
+      api
+        .getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, [loggedIn]); 
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
