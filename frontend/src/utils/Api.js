@@ -116,7 +116,7 @@ class Api {
 
 const api = new Api({
  url: "http://localhost:3000", 
-/*   url: "https://mesto.aveindominusnox.nomoreparties.sbs", */
+ /*  url: "https://mesto.aveindominusnox.nomoreparties.sbs", */
   token: `Bearer ${localStorage.getItem("token")}`,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,

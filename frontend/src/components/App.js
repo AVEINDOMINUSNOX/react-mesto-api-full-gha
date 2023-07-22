@@ -39,7 +39,7 @@ function App() {
     handleTokenCheck();
   }, []);
 
-   useEffect(() => {
+   /* useEffect(() => {
     handleTokenCheck();
     if (!loggedIn) {
       return undefined;
@@ -61,6 +61,26 @@ function App() {
           console.log(error.message);
         });
     }
+  }, [loggedIn]);  */
+  
+  useEffect(() => {
+    handleTokenCheck();
+      api
+        .getInitialCards()
+        .then((data) => {
+          setCards(
+            data.map((card) => ({
+              _id: card._id,
+              name: card.name,
+              link: card.link,
+              likes: card.likes,
+              owner: card.owner,
+            }))
+          );
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
   }, [loggedIn]); 
 
   useEffect(() => {
@@ -277,7 +297,7 @@ function App() {
           <Header userData={userData} onLogOut={handleLogOut} />
           <Routes>
             <Route
-              path="*"
+              path="/"
               element={
                 loggedIn ? (
                   <Navigate to="/mesto" replace />
