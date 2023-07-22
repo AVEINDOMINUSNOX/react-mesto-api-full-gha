@@ -39,7 +39,7 @@ function App() {
     handleTokenCheck();
   }, []);
 
-   /* useEffect(() => {
+   /*  useEffect(() => {
     handleTokenCheck();
     if (!loggedIn) {
       return undefined;
@@ -61,28 +61,8 @@ function App() {
           console.log(error.message);
         });
     }
-  }, [loggedIn]);  */
+  }, [loggedIn]);  
   
-  useEffect(() => {
-    handleTokenCheck();
-      api
-        .getInitialCards()
-        .then((data) => {
-          setCards(
-            data.map((card) => ({
-              _id: card._id,
-              name: card.name,
-              link: card.link,
-              likes: card.likes,
-              owner: card.owner,
-            }))
-          );
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-  }, [loggedIn]); 
-
   useEffect(() => {
     handleTokenCheck();
     if (!loggedIn) {
@@ -97,7 +77,30 @@ function App() {
           console.log(err);
         });
     }
+  }, [loggedIn]); */
+
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([userInfo, dataCards]) => {
+          setCurrentUser(userInfo);
+          setCards(
+            dataCards.reverse().map((item) => ({
+              _id: item._id,
+              name: item.name,
+              link: item.link,
+              likes: item.likes,
+              owner: item.owner,
+            }))
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [loggedIn]);
+
+
 
   async function handleTokenCheck() {
     const token = localStorage.getItem("token");
@@ -141,7 +144,7 @@ function App() {
       });
   };
 
-  const handleCardLike = (card) => {
+/*   const handleCardLike = (card) => {
     const isLiked = card.likes.some((data) => data._id === currentUser._id);
     api
       .selectLikeStatus(card._id, !isLiked)
@@ -149,6 +152,20 @@ function App() {
         setCards((items) =>
           items.map((c) => (c._id === card._id ? newCard : c))
         );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }; */
+
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some((id) => id === currentUser._id);
+    api
+      .selectLikeStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((items) => {
+          return items.map((c) => (c._id === card._id ? newCard : c))
+      });
       })
       .catch((err) => {
         console.log(err);
